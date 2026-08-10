@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --rink-900: #0b2b26;
+  --rink-700: #134e4a;
+  --turf-500: #3fa796;
+  --alert-amber: #c9832a;
+  --alert-red: #b84a3e;
+}
+
+/* Franjas de cancha sutiles como fondo de las páginas de login/portada */
+.pitch-stripes {
+  background-image: repeating-linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.035) 0px,
+    rgba(255, 255, 255, 0.035) 48px,
+    transparent 48px,
+    transparent 96px
+  );
+}
+
+.font-display {
+  letter-spacing: 0.02em;
+}
+
+/* Foco visible accesible en toda la app */
+:focus-visible {
+  outline: 3px solid var(--turf-500);
+  outline-offset: 2px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.badge-ok { background: #e3f3ef; color: #0f6b58; }
+.badge-pendiente { background: #fbeee0; color: var(--alert-amber); }
+.badge-atrasado { background: #f7e3e0; color: var(--alert-red); }
