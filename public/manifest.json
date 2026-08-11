@@ -1,0 +1,35 @@
+{
+  "name": "HockeyLab - Academia Hockey Greenhouse",
+  "short_name": "HockeyLab",
+  "description": "Portal de apoderados y administración de HockeyLab",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#05080D",
+  "theme_color": "#05080D",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

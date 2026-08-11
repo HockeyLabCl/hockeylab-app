@@ -33,7 +33,8 @@ export default function LoginPage() {
     <div className="min-h-screen bg-rink-900 pitch-stripes flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <p className="text-turf-500 font-display text-5xl tracking-wide">HOCKEYLAB</p>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo.png" alt="HockeyLab" className="w-40 h-auto mx-auto" />
           <p className="text-rink-100/70 text-sm mt-1">Academia Hockey Greenhouse</p>
         </div>
 

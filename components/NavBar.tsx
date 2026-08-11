@@ -22,8 +22,9 @@ export default function NavBar({
 
   return (
     <header className="bg-rink-900 text-white">
-      <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-        <p className="font-display text-2xl tracking-wide text-turf-500">HOCKEYLAB</p>
+      <div className="max-w-5xl mx-auto px-4 py-2.5 flex items-center justify-between">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/logo.png" alt="HockeyLab" className="h-11 w-auto" />
         <button
           onClick={handleLogout}
           className="text-sm text-rink-100/70 hover:text-white transition"

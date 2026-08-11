@@ -5,13 +5,14 @@ module.exports = {
     extend: {
       colors: {
         rink: {
-          900: "#0B2B26",
-          700: "#134E4A",
-          500: "#1F7A6C",
-          100: "#E7F3F0",
+          900: "#05080D",
+          700: "#12161D",
+          500: "#232A35",
+          100: "#EEF3E9",
         },
         turf: {
-          500: "#3FA796",
+          500: "#82C341",
+          700: "#5A8A28",
         },
         alert: {
           amber: "#C9832A",
@@ -19,7 +20,7 @@ module.exports = {
         },
       },
       fontFamily: {
-        display: ["'Bebas Neue'", "sans-serif"],
+        display: ["'Anton'", "sans-serif"],
         body: ["'Inter'", "sans-serif"],
       },
     },

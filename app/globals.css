@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
-  --rink-900: #0b2b26;
-  --rink-700: #134e4a;
-  --turf-500: #3fa796;
+  --rink-900: #05080d;
+  --rink-700: #12161d;
+  --turf-500: #82c341;
   --alert-amber: #c9832a;
   --alert-red: #b84a3e;
 }
