@@ -2,6 +2,16 @@
 
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import Avatar from "@/components/Avatar";
+
+function formatFecha(fecha?: string | null) {
+  if (!fecha) return "No registrada";
+  return new Date(fecha + "T00:00:00").toLocaleDateString("es-CL", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
 
 export default function FichaForm({ alumna }: { alumna: any }) {
   const supabase = createClient();
@@ -24,10 +34,14 @@ export default function FichaForm({ alumna }: { alumna: any }) {
 
   return (
     <form onSubmit={handleSave} className="bg-white rounded-xl shadow-sm p-6 space-y-5">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center gap-4">
+        <Avatar src={alumna.foto_url} size="lg" />
         <div>
           <p className="font-semibold text-lg text-rink-900">{alumna.nombre}</p>
           <p className="text-sm text-rink-700/60">{alumna.categoria}</p>
+          <p className="text-sm text-rink-700/60">
+            Nacimiento: {formatFecha(alumna.fecha_nacimiento)}
+          </p>
         </div>
       </div>
 

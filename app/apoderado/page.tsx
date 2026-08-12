@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { situacionAlumna, BADGE_TEXT, BADGE_CLASS } from "@/lib/pagos";
+import Avatar from "@/components/Avatar";
 
 export default async function ApoderadoResumen() {
   const supabase = createClient();
@@ -10,7 +11,7 @@ export default async function ApoderadoResumen() {
 
   const { data: alumnas } = await supabase
     .from("alumnas")
-    .select("id, nombre, categoria, pagos(periodo, estado)")
+    .select("id, nombre, categoria, foto_url, pagos(periodo, estado)")
     .eq("apoderado_id", user!.id);
 
   const { data: ultimosComunicados } = await supabase
@@ -34,9 +35,12 @@ export default async function ApoderadoResumen() {
           return (
             <div key={a.id} className="bg-white rounded-xl shadow-sm p-5 space-y-3">
               <div className="flex items-center justify-between">
-                <div>
-                  <p className="font-semibold text-rink-900">{a.nombre}</p>
-                  <p className="text-sm text-rink-700/60">{a.categoria}</p>
+                <div className="flex items-center gap-3">
+                  <Avatar src={a.foto_url} size="sm" />
+                  <div>
+                    <p className="font-semibold text-rink-900">{a.nombre}</p>
+                    <p className="text-sm text-rink-700/60">{a.categoria}</p>
+                  </div>
                 </div>
                 <span className={BADGE_CLASS[sit.estado]}>{BADGE_TEXT[sit.estado]}</span>
               </div>

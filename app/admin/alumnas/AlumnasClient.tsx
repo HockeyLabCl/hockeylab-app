@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import Avatar from "@/components/Avatar";
 
 const CATEGORIAS = ["Sub10", "Sub12", "Sub14", "Sub16", "Primera"];
 
@@ -40,6 +41,29 @@ export default function AlumnasClient({
   async function handleDelete(id: string) {
     if (!confirm("¿Eliminar esta alumna? Esta acción no se puede deshacer.")) return;
     await supabase.from("alumnas").delete().eq("id", id);
+    router.refresh();
+  }
+
+  const [subiendoFoto, setSubiendoFoto] = useState<string | null>(null);
+
+  async function handleSubirFoto(alumnaId: string, file: File) {
+    setSubiendoFoto(alumnaId);
+    const ext = file.name.split(".").pop();
+    const path = `${alumnaId}-${Date.now()}.${ext}`;
+
+    const { error: uploadError } = await supabase.storage
+      .from("fotos-alumnas")
+      .upload(path, file, { upsert: true });
+
+    if (uploadError) {
+      alert("No se pudo subir la foto: " + uploadError.message);
+      setSubiendoFoto(null);
+      return;
+    }
+
+    const { data } = supabase.storage.from("fotos-alumnas").getPublicUrl(path);
+    await supabase.from("alumnas").update({ foto_url: data.publicUrl }).eq("id", alumnaId);
+    setSubiendoFoto(null);
     router.refresh();
   }
 
@@ -148,18 +172,37 @@ export default function AlumnasClient({
       <div className="bg-white rounded-xl shadow-sm divide-y">
         {alumnas.map((a) => (
           <div key={a.id} className="flex items-center justify-between px-5 py-3.5">
-            <div>
-              <p className="font-medium text-rink-900 text-sm">{a.nombre}</p>
-              <p className="text-xs text-rink-700/60">
-                {a.categoria} · Apoderado: {a.profiles?.nombre ?? "—"}
-              </p>
+            <div className="flex items-center gap-3">
+              <Avatar src={a.foto_url} size="sm" />
+              <div>
+                <p className="font-medium text-rink-900 text-sm">{a.nombre}</p>
+                <p className="text-xs text-rink-700/60">
+                  {a.categoria} · Apoderado: {a.profiles?.nombre ?? "—"}
+                </p>
+              </div>
             </div>
-            <button
-              onClick={() => handleDelete(a.id)}
-              className="text-xs text-alert-red hover:underline"
-            >
-              Eliminar
-            </button>
+            <div className="flex items-center gap-3">
+              <label className="text-xs text-turf-700 hover:underline cursor-pointer">
+                {subiendoFoto === a.id ? "Subiendo..." : a.foto_url ? "Cambiar foto" : "Subir foto"}
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  disabled={subiendoFoto === a.id}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) handleSubirFoto(a.id, file);
+                    e.target.value = "";
+                  }}
+                />
+              </label>
+              <button
+                onClick={() => handleDelete(a.id)}
+                className="text-xs text-alert-red hover:underline"
+              >
+                Eliminar
+              </button>
+            </div>
           </div>
         ))}
         {alumnas.length === 0 && (
