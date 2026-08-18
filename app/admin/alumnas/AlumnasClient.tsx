@@ -7,12 +7,26 @@ import Avatar from "@/components/Avatar";
 
 const CATEGORIAS = ["Sub10", "Sub12", "Sub14", "Sub16", "Primera"];
 
+function formatUltimoIngreso(fecha?: string | null) {
+  if (!fecha) return { texto: "Nunca ha ingresado", clase: "text-alert-red" };
+  const dias = Math.floor((Date.now() - new Date(fecha).getTime()) / (1000 * 60 * 60 * 24));
+  const texto =
+    dias === 0
+      ? "Ingresó hoy"
+      : dias === 1
+      ? "Ingresó ayer"
+      : `Último ingreso hace ${dias} días`;
+  return { texto, clase: dias > 14 ? "text-alert-amber" : "text-turf-700" };
+}
+
 export default function AlumnasClient({
   alumnas,
   apoderados,
+  loginsPorId,
 }: {
   alumnas: any[];
   apoderados: any[];
+  loginsPorId: Record<string, string | null>;
 }) {
   const supabase = createClient();
   const router = useRouter();
@@ -170,7 +184,9 @@ export default function AlumnasClient({
       )}
 
       <div className="bg-white rounded-xl shadow-sm divide-y">
-        {alumnas.map((a) => (
+        {alumnas.map((a) => {
+          const ultimo = formatUltimoIngreso(loginsPorId[a.apoderado_id]);
+          return (
           <div key={a.id} className="flex items-center justify-between px-5 py-3.5">
             <div className="flex items-center gap-3">
               <Avatar src={a.foto_url} size="sm" />
@@ -179,6 +195,7 @@ export default function AlumnasClient({
                 <p className="text-xs text-rink-700/60">
                   {a.categoria} · Apoderado: {a.profiles?.nombre ?? "—"}
                 </p>
+                <p className={`text-xs ${ultimo.clase}`}>{ultimo.texto}</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -204,7 +221,8 @@ export default function AlumnasClient({
               </button>
             </div>
           </div>
-        ))}
+          );
+        })}
         {alumnas.length === 0 && (
           <p className="px-5 py-4 text-sm text-rink-700/60">No hay alumnas registradas.</p>
         )}

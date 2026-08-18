@@ -15,6 +15,9 @@ export default async function AdminAlumnasPage() {
     .eq("role", "apoderado")
     .order("nombre");
 
+  const { data: logins } = await supabase.rpc("admin_ultimos_logins");
+  const loginsPorId = new Map((logins ?? []).map((l: any) => [l.id, l.last_sign_in_at]));
+
   return (
     <div className="space-y-8">
       <div>
@@ -23,7 +26,11 @@ export default async function AdminAlumnasPage() {
           Crea fichas de alumnas y asígnalas a la cuenta de su apoderado.
         </p>
       </div>
-      <AlumnasClient alumnas={alumnas ?? []} apoderados={apoderados ?? []} />
+      <AlumnasClient
+        alumnas={alumnas ?? []}
+        apoderados={apoderados ?? []}
+        loginsPorId={Object.fromEntries(loginsPorId)}
+      />
     </div>
   );
 }
