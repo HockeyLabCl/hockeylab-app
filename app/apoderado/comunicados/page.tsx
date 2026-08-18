@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import MarcarVisto from "@/components/MarcarVisto";
 
 export default async function ComunicadosApoderadoPage() {
   const supabase = createClient();
@@ -10,6 +11,7 @@ export default async function ComunicadosApoderadoPage() {
 
   return (
     <div className="space-y-6">
+      <MarcarVisto seccion="comunicados" />
       <div>
         <h1 className="font-display text-3xl tracking-wide text-rink-900">Comunicados</h1>
         <p className="text-rink-700/70 text-sm mt-1">Noticias y avisos de la academia.</p>

@@ -7,6 +7,7 @@ import {
   BADGE_CLASS,
 } from "@/lib/pagos";
 import QRCode from "@/components/QRCode";
+import MarcarVisto from "@/components/MarcarVisto";
 
 export default async function PagosApoderadoPage() {
   const supabase = createClient();
@@ -23,6 +24,7 @@ export default async function PagosApoderadoPage() {
 
   return (
     <div className="space-y-8">
+      <MarcarVisto seccion="pagos" />
       <div>
         <h1 className="font-display text-3xl tracking-wide text-rink-900">Pagos</h1>
         <p className="text-rink-700/70 text-sm mt-1">

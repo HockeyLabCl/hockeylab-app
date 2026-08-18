@@ -9,7 +9,7 @@ export default function NavBar({
   links,
 }: {
   role: "admin" | "apoderado";
-  links: { href: string; label: string }[];
+  links: { href: string; label: string; nuevo?: boolean }[];
 }) {
   const router = useRouter();
   const supabase = createClient();
@@ -38,9 +38,12 @@ export default function NavBar({
             <Link
               key={l.href}
               href={l.href}
-              className="whitespace-nowrap px-4 py-2.5 text-sm font-medium text-rink-100/80 hover:text-white hover:bg-white/5 transition"
+              className="relative whitespace-nowrap px-4 py-2.5 text-sm font-medium text-rink-100/80 hover:text-white hover:bg-white/5 transition"
             >
               {l.label}
+              {l.nuevo && (
+                <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-turf-500" />
+              )}
             </Link>
           ))}
         </div>
