@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "HockeyLab | Academia Hockey Greenhouse",
+  title: "HockeyLab | Portal de la academia",
   description: "Portal de apoderados y administración de HockeyLab",
   manifest: "/manifest.json",
   icons: {

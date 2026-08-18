@@ -104,7 +104,7 @@ export default function LoginPage() {
         <div className="text-center mb-8">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/logo.png" alt="HockeyLab" className="w-40 h-auto mx-auto" />
-          <p className="text-rink-100/70 text-sm mt-1">Academia Hockey Greenhouse</p>
+          <p className="text-rink-100/70 text-sm mt-1">Academia HockeyLab</p>
         </div>
 
         {mode === "checking" && (
