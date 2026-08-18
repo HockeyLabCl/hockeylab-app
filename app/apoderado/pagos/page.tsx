@@ -6,8 +6,8 @@ import {
   BADGE_TEXT,
   BADGE_CLASS,
 } from "@/lib/pagos";
-import QRCode from "@/components/QRCode";
 import MarcarVisto from "@/components/MarcarVisto";
+import CopiarDatosPago from "@/components/CopiarDatosPago";
 
 export default async function PagosApoderadoPage() {
   const supabase = createClient();
@@ -70,7 +70,10 @@ export default async function PagosApoderadoPage() {
       })}
 
       <div className="bg-rink-900 text-white rounded-xl shadow-sm p-6">
-        <h2 className="font-display text-xl tracking-wide mb-4">Datos para transferencia</h2>
+        <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
+          <h2 className="font-display text-xl tracking-wide">Datos para transferencia</h2>
+          <CopiarDatosPago datosPago={datosPago} />
+        </div>
         <div className="grid sm:grid-cols-2 gap-6 items-start">
           <dl className="space-y-2 text-sm">
             <Row label="Nombre / titular" value={datosPago?.nombre_titular} />
@@ -83,21 +86,17 @@ export default async function PagosApoderadoPage() {
               <p className="pt-2 text-rink-100/70">{datosPago.instrucciones_adicionales}</p>
             )}
           </dl>
-          <div className="bg-white rounded-lg p-4 flex flex-col items-center gap-2 justify-self-start">
-            {datosPago?.qr_image_url ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={datosPago.qr_image_url} alt="Código QR de pago" className="w-40 h-40 object-contain" />
-            ) : (
-              <QRCode
-                value={
-                  datosPago?.numero_cuenta
-                    ? `Cuenta ${datosPago.numero_cuenta} - ${datosPago.banco ?? ""}`
-                    : "Datos de pago no configurados"
-                }
+          {datosPago?.qr_image_url && (
+            <div className="bg-white rounded-lg p-4 flex flex-col items-center gap-2 justify-self-start">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={datosPago.qr_image_url}
+                alt="Código QR de pago del banco"
+                className="w-40 h-40 object-contain"
               />
-            )}
-            <p className="text-xs text-rink-900/60">Escanea para copiar los datos</p>
-          </div>
+              <p className="text-xs text-rink-900/60">Escanea con la app de tu banco</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
